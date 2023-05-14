@@ -34,6 +34,18 @@ namespace Ex26_WPFAndMVVM1.ViewModel
             }
 		}
 
+		private string sliderTextBox;
+
+		public string SliderTextBox
+		{
+			get { return sliderTextBox; }
+			set { 
+				sliderTextBox = value;
+                OnPropertyChanged("SliderTextBox");
+            }
+		}
+
+
         // Property der inititaliserer en instans af UpdateLabelCommand klassen
         public ICommand UpdateLabelCommand { get; } = new UpdateLabelCommand();
 

@@ -10,11 +10,24 @@ namespace Ex26_WPFAndMVVM1.Commands
 {
     public class UpdateTextBoxCommand : ICommand
     {
-        public event EventHandler? CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged
+        {
+            // Makes sure CanExecuteChanged is updated more often
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
         public bool CanExecute(object? parameter)
         {
-            return true; 
+            bool result = false;
+
+            // Checks the value of SliderTextBox in order to determine whether UpdateLabel button is enabled
+            if (parameter is MainViewModel mvm) {
+                if (mvm.SliderTextBox == null || mvm.SliderTextBox == "0") {
+                    result = true;
+                }
+            }
+            return result;
         }
 
         public void Execute(object? parameter)
